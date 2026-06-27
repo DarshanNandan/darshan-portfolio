@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: #FAFAF8; color: #16140F; overflow-x: hidden; }
+::selection { background: #E8281A; color: #fff; }
+a:focus-visible, button:focus-visible { outline: 2px solid #E8281A; outline-offset: 3px; }
+
+/* Floating bubble animation */
+@keyframes dgFloat {
+  0%   { transform: translate(0, 0) scale(1); }
+  25%  { transform: translate(18px, -26px) scale(1.06); }
+  50%  { transform: translate(-12px, -46px) scale(0.96); }
+  75%  { transform: translate(-26px, -12px) scale(1.03); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Cert scrollbar */
+.dg-cert-rail::-webkit-scrollbar { height: 6px; }
+.dg-cert-rail::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 999px; }
+
+/* Mobile */
+@media (max-width: 900px) {
+  .dg-nav-desktop { display: none !important; }
+  .dg-nav-toggle { display: flex !important; align-items: center; justify-content: center; }
+
+  /* Hero */
+  .dg-hero-grid { grid-template-columns: 1fr !important; text-align: center; }
+  .dg-hero-grid > div:last-child { display: none !important; }
+  .dg-hero-img {
+    position: relative !important;
+    width: 100% !important;
+    height: 280px !important;
+    inset: auto !important;
+    margin-bottom: 20px;
+    justify-content: center !important;
+  }
+  .dg-hero-photo { height: 100% !important; width: auto !important; max-height: 280px !important; max-width: 100% !important; }
+  .dg-hero-text-col { max-width: 100% !important; margin-right: auto !important; text-align: center !important; }
+  .dg-hero-text-col p { max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; }
+  .dg-hero-row { justify-content: center !important; }
+
+  /* Layouts */
+  .dg-about-grid { grid-template-columns: 1fr !important; }
+  .dg-cert-grid { grid-template-columns: 1fr !important; }
+  .dg-cert-grid > div:last-child { order: -1; }
+  .dg-expertise-mobile { display: flex !important; }
+  .dg-tech-grid { grid-template-columns: 1fr !important; }
+  .dg-projects-grid { grid-template-columns: 1fr !important; }
+  .dg-contact-title { font-size: 70px !important; }
+  .dg-contact-grid { grid-template-columns: 1fr !important; }
+}
+
+.dg-expertise-mobile { display: none; }
