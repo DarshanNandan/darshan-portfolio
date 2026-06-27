@@ -45,6 +45,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #E8281A; outline-offs
   .dg-cert-grid { grid-template-columns: 1fr !important; }
   .dg-cert-grid > div:last-child { order: -1; }
   .dg-expertise-mobile { display: flex !important; }
+  .dg-expertise-grid { display: none !important; }
   .dg-tech-grid { grid-template-columns: 1fr !important; }
   .dg-projects-grid { grid-template-columns: 1fr !important; }
   .dg-contact-title { font-size: 70px !important; }
