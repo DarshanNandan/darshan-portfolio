@@ -58,7 +58,7 @@ export default function Expertise() {
         {/* Mobile fallback */}
         <div className="dg-expertise-mobile" style={{ flexDirection: "column", gap: 16, display: "none" }}>
           {EXPERTISE_CARDS.map((card) => (
-            <ExpertiseCardStatic key={card.num} num={card.num} title={card.title} desc={card.desc} />
+            <ExpertiseCardStatic key={card.num} num={card.num} title={card.title} desc={card.desc} tags={card.tags} />
           ))}
         </div>
       </div>
