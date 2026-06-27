@@ -5,11 +5,12 @@ import { RED, INK } from "../../constants/data";
 /* ---- ExpertiseCardFull ---- */
 export function ExpertiseCardFull({ num, title, desc, tags, delay }) {
   const [hover, setHover] = useState(false);
+  const [hoveredTag, setHoveredTag] = useState(null);
   return (
     <Reveal delay={delay}>
       <div
         onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
+        onMouseLeave={() => { setHover(false); setHoveredTag(null); }}
         style={{
           background: hover ? RED : "rgba(255,255,255,0.97)",
           borderRadius: 20, padding: "28px 26px",
@@ -26,14 +27,19 @@ export function ExpertiseCardFull({ num, title, desc, tags, delay }) {
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13.5, lineHeight: 1.65, color: hover ? "rgba(255,255,255,0.85)" : "rgba(22,20,15,0.62)", flex: 1, transition: "color 0.3s ease" }}>{desc}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 6 }}>
           {tags.map((t) => (
-            <span key={t} style={{
-              fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600,
-              padding: "4px 11px", borderRadius: 999,
-              background: hover ? "rgba(255,255,255,0.18)" : "rgba(232,40,26,0.08)",
-              color: hover ? "#fff" : RED,
-              border: hover ? "1px solid rgba(255,255,255,0.25)" : "1px solid rgba(232,40,26,0.2)",
-              transition: "all 0.3s ease",
-            }}>{t}</span>
+            <span
+              key={t}
+              onMouseEnter={() => setHoveredTag(t)}
+              onMouseLeave={() => setHoveredTag(null)}
+              style={{
+                fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600,
+                padding: "4px 11px", borderRadius: 999,
+                background: hoveredTag === t ? "#fff" : hover ? "rgba(255,255,255,0.18)" : "rgba(232,40,26,0.08)",
+                color: hoveredTag === t ? RED : hover ? "#fff" : RED,
+                border: hoveredTag === t ? `1px solid ${RED}` : hover ? "1px solid rgba(255,255,255,0.25)" : "1px solid rgba(232,40,26,0.2)",
+                transition: "all 0.2s ease",
+              }}
+            >{t}</span>
           ))}
         </div>
       </div>
@@ -42,12 +48,45 @@ export function ExpertiseCardFull({ num, title, desc, tags, delay }) {
 }
 
 /* ---- ExpertiseCardStatic ---- */
-export function ExpertiseCardStatic({ num, title, desc }) {
+export function ExpertiseCardStatic({ num, title, desc, tags }) {
+  const [hover, setHover] = useState(false);
+  const [hoveredTag, setHoveredTag] = useState(null);
   return (
-    <div style={{ background: "rgba(255,255,255,0.97)", borderRadius: 16, padding: "22px 24px", boxShadow: "0 10px 30px rgba(0,0,0,0.2)" }}>
-      <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 12, color: RED }}>{num}</span>
-      <h4 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 17, color: INK, margin: "6px 0 8px" }}>{title}</h4>
-      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13.5, lineHeight: 1.6, color: "rgba(22,20,15,0.65)" }}>{desc}</p>
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => { setHover(false); setHoveredTag(null); }}
+      style={{
+        background: hover ? RED : "rgba(255,255,255,0.97)",
+        borderRadius: 20, padding: "28px 26px",
+        boxShadow: hover ? "0 24px 50px rgba(232,40,26,0.4)" : "0 10px 30px rgba(0,0,0,0.18)",
+        display: "flex", flexDirection: "column", gap: 12,
+        transition: "all 0.35s cubic-bezier(.16,1,.3,1)",
+        transform: hover ? "translateY(-6px)" : "translateY(0)",
+        cursor: "default",
+      }}
+    >
+      <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, color: hover ? "rgba(255,255,255,0.35)" : "rgba(232,40,26,0.25)", lineHeight: 1, transition: "color 0.3s ease" }}>{num}</span>
+      <h4 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 18, color: hover ? "#fff" : INK, transition: "color 0.3s ease" }}>{title}</h4>
+      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13.5, lineHeight: 1.65, color: hover ? "rgba(255,255,255,0.85)" : "rgba(22,20,15,0.62)", flex: 1, transition: "color 0.3s ease" }}>{desc}</p>
+      {tags && tags.length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 6 }}>
+          {tags.map((t) => (
+            <span
+              key={t}
+              onMouseEnter={() => setHoveredTag(t)}
+              onMouseLeave={() => setHoveredTag(null)}
+              style={{
+                fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600,
+                padding: "4px 11px", borderRadius: 999,
+                background: hoveredTag === t ? "#fff" : hover ? "rgba(255,255,255,0.18)" : "rgba(232,40,26,0.08)",
+                color: hoveredTag === t ? RED : hover ? "#fff" : RED,
+                border: hoveredTag === t ? `1px solid ${RED}` : hover ? "1px solid rgba(255,255,255,0.25)" : "1px solid rgba(232,40,26,0.2)",
+                transition: "all 0.2s ease",
+              }}
+            >{t}</span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
