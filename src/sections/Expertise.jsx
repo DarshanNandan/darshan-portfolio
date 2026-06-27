@@ -49,7 +49,7 @@ export default function Expertise() {
         </Reveal>
 
         {/* Cards grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px,1fr))", gap: 20 }}>
+        <div className="dg-expertise-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px,1fr))", gap: 20 }}>
           {EXPERTISE_CARDS.map((card, i) => (
             <ExpertiseCardFull key={card.num} {...card} delay={i * 80} />
           ))}
