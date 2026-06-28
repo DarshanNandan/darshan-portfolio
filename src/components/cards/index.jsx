@@ -134,34 +134,49 @@ export function TechGroup({ title, items, delay }) {
 /* ---- ProjectCard ---- */
 export function ProjectCard({ eyebrow, title, desc, tags, points, delay }) {
   const [hover, setHover] = useState(false);
+  const [hoveredTag, setHoveredTag] = useState(null);
   return (
     <Reveal delay={delay}>
       <div
         onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
+        onMouseLeave={() => { setHover(false); setHoveredTag(null); }}
         style={{
-          background: "rgba(255,255,255,0.95)", borderRadius: 18, backdropFilter: "blur(6px)",
+          background: hover ? RED : "rgba(255,255,255,0.95)",
+          borderRadius: 18, backdropFilter: "blur(6px)",
           padding: "28px 26px", height: "100%", display: "flex", flexDirection: "column",
-          transition: "transform 0.35s cubic-bezier(.16,1,.3,1), box-shadow 0.35s ease",
-          transform: hover ? "translateY(-8px) rotate(-0.6deg)" : "translateY(0) rotate(0deg)",
-          boxShadow: hover ? "0 30px 60px rgba(0,0,0,0.3)" : "0 10px 30px rgba(0,0,0,0.12)",
+          transition: "all 0.35s cubic-bezier(.16,1,.3,1)",
+          transform: hover ? "translateY(-8px)" : "translateY(0)",
+          boxShadow: hover ? "0 30px 60px rgba(232,40,26,0.4)" : "0 10px 30px rgba(0,0,0,0.12)",
+          cursor: "default",
         }}
       >
-        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11.5, fontWeight: 700, letterSpacing: "0.06em", color: RED }}>{eyebrow}</span>
-        <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 21, color: INK, margin: "8px 0 10px" }}>{title}</h3>
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, lineHeight: 1.65, color: "rgba(22,20,15,0.65)", marginBottom: 14, flex: 1 }}>{desc}</p>
+        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11.5, fontWeight: 700, letterSpacing: "0.06em", color: hover ? "rgba(255,255,255,0.7)" : RED, transition: "color 0.3s ease" }}>{eyebrow}</span>
+        <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 21, color: hover ? "#fff" : INK, margin: "8px 0 10px", transition: "color 0.3s ease" }}>{title}</h3>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, lineHeight: 1.65, color: hover ? "rgba(255,255,255,0.82)" : "rgba(22,20,15,0.65)", marginBottom: 14, flex: 1, transition: "color 0.3s ease" }}>{desc}</p>
         {points && (
           <ul style={{ margin: "0 0 16px", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
             {points.map((p, i) => (
-              <li key={i} style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "rgba(22,20,15,0.6)", paddingLeft: 14, position: "relative" }}>
-                <span style={{ position: "absolute", left: 0, color: RED }}>—</span>{p}
+              <li key={i} style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: hover ? "rgba(255,255,255,0.75)" : "rgba(22,20,15,0.6)", paddingLeft: 14, position: "relative", transition: "color 0.3s ease" }}>
+                <span style={{ position: "absolute", left: 0, color: hover ? "rgba(255,255,255,0.6)" : RED, transition: "color 0.3s ease" }}>—</span>{p}
               </li>
             ))}
           </ul>
         )}
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
           {tags.map((t) => (
-            <span key={t} style={{ fontFamily: "'Inter', sans-serif", fontSize: 11.5, fontWeight: 500, color: "rgba(22,20,15,0.65)", background: "rgba(22,20,15,0.06)", padding: "5px 12px", borderRadius: 999 }}>{t}</span>
+            <span
+              key={t}
+              onMouseEnter={() => setHoveredTag(t)}
+              onMouseLeave={() => setHoveredTag(null)}
+              style={{
+                fontFamily: "'Inter', sans-serif", fontSize: 11.5, fontWeight: 500,
+                padding: "5px 12px", borderRadius: 999,
+                background: hoveredTag === t ? "#fff" : hover ? "rgba(255,255,255,0.18)" : "rgba(22,20,15,0.06)",
+                color: hoveredTag === t ? RED : hover ? "#fff" : "rgba(22,20,15,0.65)",
+                border: hoveredTag === t ? `1px solid ${RED}` : hover ? "1px solid rgba(255,255,255,0.25)" : "1px solid transparent",
+                transition: "all 0.2s ease",
+              }}
+            >{t}</span>
           ))}
         </div>
       </div>
