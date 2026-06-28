@@ -57,18 +57,23 @@ export default function Nav({ active, onNav }) {
       </nav>
 
       <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-        <MagNavLink
+        <a
           href={RESUME_PDF}
-          download="Darshan_Gowda_NG_Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
           className="dg-nav-desktop"
           style={{
             fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: 13.5,
-            color: INK, background: "#fff", padding: "11px 24px",
+            color: "#fff", background: "transparent", padding: "11px 24px",
             borderRadius: 999, textDecoration: "none",
+            border: "2px solid rgba(255,255,255,0.5)",
+            transition: "all 0.2s ease",
           }}
+          onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.15)"; e.currentTarget.style.borderColor = "#fff"; }}
+          onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.5)"; }}
         >
-          Hire Me
-        </MagNavLink>
+          View Resume
+        </a>
 
         <button
           aria-label="Menu"
@@ -106,14 +111,15 @@ export default function Nav({ active, onNav }) {
           ))}
           <a
             href={RESUME_PDF}
-            download="Darshan_Gowda_NG_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: 15,
               color: "#fff", background: RED, padding: "12px 20px",
               borderRadius: 999, textDecoration: "none", textAlign: "center", marginTop: 8,
             }}
           >
-            Download Resume
+            View Resume
           </a>
         </div>
       )}
