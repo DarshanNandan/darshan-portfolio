@@ -17,7 +17,8 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
-    // Fallback to index.html for SPA client-side routing
-    historyApiFallback: true,
+  },
+  preview: {
+    port: 3000,
   },
 });
