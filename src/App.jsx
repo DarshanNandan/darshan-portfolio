@@ -12,22 +12,18 @@ import Certifications from "./sections/Certifications";
 import Contact from "./sections/Contact";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import { fetchVisitors } from "./utils/supabase";
 import { INK, RED } from "./constants/data";
 
-const SECTIONS = ["home","about","expertise","skills","experience","projects","certifications","contact"];
+const SECTIONS   = ["home","about","expertise","skills","experience","projects","certifications","contact"];
 const SESSION_KEY = "dg_gate_passed";
-const VISITORS_KEY = "portfolio_visitors";
 
 function useVisitorCount() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(null);
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(VISITORS_KEY);
-      const list = raw ? JSON.parse(raw) : [];
-      setCount(Array.isArray(list) ? list.length : 0);
-    } catch (_) {
-      setCount(0);
-    }
+    fetchVisitors()
+      .then((data) => setCount(Array.isArray(data) ? data.length : 0))
+      .catch(() => setCount(0));
   }, []);
   return count;
 }
@@ -37,7 +33,7 @@ function Portfolio() {
   const [gateVisible, setGateVisible] = useState(
     () => sessionStorage.getItem(SESSION_KEY) !== "1"
   );
-  const visitorCount = useVisitorCount();
+  const count = useVisitorCount();
 
   useEffect(() => {
     const onScroll = () => {
@@ -104,7 +100,7 @@ function Portfolio() {
               <path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" stroke="#c0392b" strokeWidth="2" strokeLinecap="round"/>
             </svg>
             <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.45)" }}>
-              {visitorCount} {visitorCount === 1 ? "visitor" : "visitors"}
+              {count === null ? "…" : `${count} ${count === 1 ? "visitor" : "visitors"}`}
             </span>
           </Link>
         </div>
